@@ -7,6 +7,12 @@
     animation-fill-mode: both
 }
 
-#themecolors li a {
+#themecolors li a,
+.cursor {
     cursor: pointer;
+}
+
+#btn-google {
+    display: flex;
+    justify-content: center;
 }
