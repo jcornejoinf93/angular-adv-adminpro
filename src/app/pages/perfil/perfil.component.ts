@@ -78,7 +78,6 @@ export class PerfilComponent implements OnInit {
           console.log(err);
           Swal.fire('Terrible', 'No ha sido posible cambiar la imagen', 'error');
         });
-    
   }
 
 }

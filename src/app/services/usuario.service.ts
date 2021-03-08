@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form.interfaces';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 import { tap, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -36,6 +37,14 @@ export class UsuarioService {
 
   get uid(): string {
     return this.usuario.uid || '';
+  }
+
+  get headers() {
+    return  {
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
   googleInit() {
@@ -85,7 +94,9 @@ export class UsuarioService {
     data = {
       ...data,
       role: this.usuario.role
-    };
+    }
+
+    // data.role = this.usuario.role;
 
     return this.http.put( `${ base_url }/usuarios/${ this.uid }`, data, {
       headers: {
@@ -120,5 +131,30 @@ export class UsuarioService {
         this.router.navigateByUrl('/login');
       });
     });
+  }
+
+  cargarUsuarios(desde: number = 0) {
+    return this.http.get<CargarUsuario>(`${base_url}/usuarios?desde=${ desde }`, this.headers)
+                    .pipe(
+                      map( resp => {
+                        //console.log(resp);
+                        const usuariosDB = resp.usuariosDB.map(
+                          user => new Usuario(user.nombre, user.email, '', user.google, user.role, user.img, user.uid)
+                          );
+                        return {
+                          total: resp.total,
+                          usuariosDB
+                        };
+                      })
+                    );
+
+  }
+
+  eliminarUsuario(usuario: Usuario) {
+    return this.http.delete(`${ base_url }/usuarios/${ usuario.uid }`, this.headers);
+  }
+
+  guardaUsuario( usuario: Usuario ){
+    return this.http.put( `${ base_url }/usuarios/${ usuario.uid }`, usuario, this.headers );
   }
 }
