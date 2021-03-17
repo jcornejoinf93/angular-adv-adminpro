@@ -68,8 +68,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }
 
     this.busquedaServices.buscar('usuarios', termino).subscribe(
-      resp => {
-        this.usuarios = resp;
+      (resp: Usuario[]) => {
+        this.usuarios = resp; //as Usuario[];
       }
     );
   }
@@ -105,12 +105,10 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   cambiarRole( usuario: Usuario ) {
     this.usuariosServices.guardaUsuario(usuario).subscribe( resp => {
-      //console.log(resp);
     });
   }
 
   abrirModal(usuario: Usuario) {
-    //console.log(usuario);
     this.modalImagenServices.abrirModal('usuarios', usuario.uid, usuario.img);
   }
 

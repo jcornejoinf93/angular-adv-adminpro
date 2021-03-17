@@ -8,7 +8,7 @@ import { RegisterForm } from '../interfaces/register-form.interfaces';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { Usuario } from '../models/usuario.model';
@@ -137,7 +137,7 @@ export class UsuarioService {
     return this.http.get<CargarUsuario>(`${base_url}/usuarios?desde=${ desde }`, this.headers)
                     .pipe(
                       map( resp => {
-                        //console.log(resp);
+                        //console.log(resp.usuariosDB);
                         const usuariosDB = resp.usuariosDB.map(
                           user => new Usuario(user.nombre, user.email, '', user.google, user.role, user.img, user.uid)
                           );
