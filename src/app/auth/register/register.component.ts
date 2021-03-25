@@ -84,7 +84,7 @@ export class RegisterComponent {
       // Navegar al dashboard
       this.router.navigateByUrl('/');
     }, (err) => {
-        //console.warn(err.error.msg);
+        // console.error(err);
         Swal.fire({
           icon: 'error',
           title: 'No se ha podido registrar al usuario',

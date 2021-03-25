@@ -22,6 +22,11 @@
     height: 200px;
 }
 
+.w75 {
+    width: 75px;
+    border-radius: 50%;
+}
+
 .w100 {
     width: 100px;
 }
