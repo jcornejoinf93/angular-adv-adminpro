@@ -18,7 +18,7 @@ export class PagesComponent implements OnInit {
   ngOnInit(): void {
     customInitFunctions();
     this.sideberService.cargarMenu();
-    console.log(this.sideberService.menu);
+    // console.log(this.sideberService.menu);
   }
 
 }
